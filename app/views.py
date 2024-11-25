@@ -23,9 +23,15 @@ def create():
         flash('Something went wrong.', 'danger')
     return render_template('create.html', form=form)
 
-@views.route('/update/<id>')
+@views.route('/update/<id>', methods=['GET', 'POST'])
 def update(id):
-    return 'Update'
+    todo = Todo.query.get_or_404(id)
+    form = TaskForm(task=todo.task)
+    if form.validate_on_submit():
+        todo.task = form.task.data
+        db.session.commit()
+        return redirect(url_for('views.home'))
+    return render_template('update.html', form=form)
 
 @views.route('/delete/<id>')
 def delete(id):

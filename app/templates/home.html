@@ -4,9 +4,13 @@
 
 {% block content %}
     <h1>Home</h1>
+    <a href="{{ url_for('views.create') }}">Create</a>
     <ul>
         {% for task in tasks %}
-            <li>{{ task.task }}</li>
+            <li>
+                <input type="checkbox" name="" id="task-{{ task.id }}">
+                <label for="task-{{ task.id }}">{{ task.task }}</label>&nbsp;<a href="{{ url_for('views.update', id=task.id) }}" style="color: green;">Update</a>&nbsp;<a href="{{ url_for('views.delete', id=task.id) }}" style="color: red;">Delete</a>
+            </li>
         {% endfor %}
     </ul>
 {% endblock %}

@@ -4,4 +4,9 @@
 
 {% block content %}
     <h1>Update</h1>
+    <form method="post">
+        {{ form.hidden_tag() }}
+        {{ form.task.label }}{{ form.task(size=20) }}
+        {{ form.submit() }}
+    </form>
 {% endblock %}
