@@ -4,9 +4,12 @@
 
 {% block content %}
     <h1>Update</h1>
-    <form method="post">
+    <form method="post" class="ui form">
         {{ form.hidden_tag() }}
-        {{ form.task.label }}{{ form.task(size=20) }}
-        {{ form.submit() }}
+        <div class="field">
+            {{ form.task.label }}
+            {{ form.task(placeholder='Create new task') }}
+        </div>
+        {{ form.submit(class='ui button primary') }}
     </form>
 {% endblock %}
