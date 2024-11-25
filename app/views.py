@@ -35,4 +35,7 @@ def update(id):
 
 @views.route('/delete/<id>')
 def delete(id):
-    return 'Delete'
+    todo = Todo.query.get_or_404(id)
+    db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('views.home'))
