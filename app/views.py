@@ -7,8 +7,8 @@ views = Blueprint('views', __name__)
 
 @views.route('/')
 def home():
-    tasks = Todo.query.all()
-    return render_template('home.html', tasks=tasks)
+    todos = Todo.query.all()
+    return render_template('home.html', todos=todos)
 
 @views.route('/create', methods=['GET', 'POST'])
 def create():
@@ -37,5 +37,12 @@ def update(id):
 def delete(id):
     todo = Todo.query.get_or_404(id)
     db.session.delete(todo)
+    db.session.commit()
+    return redirect(url_for('views.home'))
+
+@views.route('/toggle/<id>')
+def toggle(id):
+    todo = Todo.query.get_or_404(id)
+    todo.completed = not todo.completed
     db.session.commit()
     return redirect(url_for('views.home'))

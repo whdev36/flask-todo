@@ -6,10 +6,11 @@
     <h1>Home</h1>
     <a href="{{ url_for('views.create') }}">Create</a>
     <ul>
-        {% for task in tasks %}
+        {% for todo in todos %}
             <li>
-                <input type="checkbox" name="" id="task-{{ task.id }}">
-                <label for="task-{{ task.id }}">{{ task.task }}</label>&nbsp;<a href="{{ url_for('views.update', id=task.id) }}" style="color: green;">Update</a>&nbsp;<a href="{{ url_for('views.delete', id=task.id) }}" style="color: red;">Delete</a>
+                <input type="checkbox" name="" id="todo-{{ todo.id }}" {% if todo.completed %}checked{% endif %} onclick="location.href='/toggle/{{ todo.id }}'">
+                {% if todo.completed %}<label style="text-decoration: line-through;" for="todo-{{ todo.id }}">{{ todo.task }}</label>{% else %}<label for="todo-{{ todo.id }}">{{ todo.task }}</label>{% endif %}
+                <a href="{{ url_for('views.update', id=todo.id) }}" style="color: green;">Update</a>&nbsp;<a href="{{ url_for('views.delete', id=todo.id) }}" style="color: red;">Delete</a>
             </li>
         {% endfor %}
     </ul>
