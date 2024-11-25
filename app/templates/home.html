@@ -4,4 +4,9 @@
 
 {% block content %}
     <h1>Home</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.task }}</li>
+        {% endfor %}
+    </ul>
 {% endblock %}
