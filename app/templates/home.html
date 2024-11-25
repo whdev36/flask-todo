@@ -3,15 +3,23 @@
 {% block title %}Home{% endblock %}
 
 {% block content %}
-    <h1>Home</h1>
-    <a href="{{ url_for('views.create') }}">Create</a>
-    <ul>
+    <h1>Tasks</h1>
+    <div class="">
         {% for todo in todos %}
-            <li>
-                <input type="checkbox" name="" id="todo-{{ todo.id }}" {% if todo.completed %}checked{% endif %} onclick="location.href='/toggle/{{ todo.id }}'">
-                {% if todo.completed %}<label style="text-decoration: line-through;" for="todo-{{ todo.id }}">{{ todo.task }}</label>{% else %}<label for="todo-{{ todo.id }}">{{ todo.task }}</label>{% endif %}
-                <a href="{{ url_for('views.update', id=todo.id) }}" style="color: green;">Update</a>&nbsp;<a href="{{ url_for('views.delete', id=todo.id) }}" style="color: red;">Delete</a>
-            </li>
+            <div class="ui segment item flex-container">
+                <div class="ui checkbox">
+                    <input id="task-{{ todo.id }}" type="checkbox" onclick="location.href='/toggle/{{ todo.id }}'" {% if todo.completed %}checked{% endif %}>
+                    {% if todo.completed %}
+                        <label style="text-decoration: line-through;" for="task-{{ todo.id }}">{{ todo.task }}</label>
+                    {% else %}
+                        <label for="task-{{ todo.id }}">{{ todo.task }}</label>
+                    {% endif %}
+                </div>
+                <div>
+                    <a href="{{ url_for('views.update', id=todo.id) }}" style="color: green;"><i class="edit icon"></i></a>
+                    <a href="{{ url_for('views.delete', id=todo.id) }}" style="color: red;"><i class="trash alternate icon"></i></a>
+                </div>
+            </div>
         {% endfor %}
-    </ul>
+    </div>
 {% endblock %}

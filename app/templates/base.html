@@ -4,11 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Todo | {% block title %}{% endblock %}</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@300..700&display=swap');
+
         * {
             font-family: "Fredoka", sans-serif;
+        }
+
+        .flex-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
     </style>
 </head>
