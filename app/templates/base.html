@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -20,10 +21,10 @@
         {% include 'navbar.html' %}
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
-                <div class="ui message">
+                <div class="ui {{ category }} message">
                     <i class="close icon"></i>
                     <div class="header">
-                        {{ category }}
+                        {{ category.title() }}
                     </div>
                     <p>{{ message }}</p>
                 </div>
@@ -32,6 +33,30 @@
         {% block content %}{% endblock %}
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.5.0/semantic.min.js"></script>
+    <script>
+        // Flash message close behavior
+        document.addEventListener("DOMContentLoaded", function () {
+            const closeIcons = document.querySelectorAll(".message .close.icon");
+            closeIcons.forEach(icon => {
+                icon.addEventListener("click", function () {
+                    const message = this.closest(".message");
+                    message.style.transition = "opacity 0.3s ease";
+                    message.style.opacity = "0";
+                    setTimeout(() => message.remove(), 300); // Remove element after fade-out
+                });
+            });
+
+            // Optional: Auto-close messages after 5 seconds
+            const messages = document.querySelectorAll(".message");
+            messages.forEach(message => {
+                setTimeout(() => {
+                    message.style.transition = "opacity 0.3s ease";
+                    message.style.opacity = "0";
+                    setTimeout(() => message.remove(), 300);
+                }, 5000); // Auto-close after 5 seconds
+            });
+        });
+    </script>
 </body>
 
 </html>
